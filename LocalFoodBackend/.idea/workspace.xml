@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4d270b76-f63f-45c6-94b7-7a7e4eb4a6b8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../untitled/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/.vscode/extensions.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/.vscode/extensions.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/.vscode/launch.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/.vscode/launch.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/.vscode/tasks.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/.vscode/tasks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/src/app/app.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/src/app/app.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/src/app/app.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/src/app/app.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/src/app/app.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/src/app/app.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/src/app/app.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/src/app/app.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/src/app/app.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/src/app/app.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/src/app/app.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/src/app/app.routes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/src/assets/.gitkeep" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/src/assets/.gitkeep" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/src/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/src/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/src/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/src/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/tsconfig.app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../untitled/tsconfig.spec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFood/tsconfig.spec.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file://$USER_HOME$/sdk/go1.22.1" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2gomUMbqtVAStTo66rcKxrdlooV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "Go Build.go build LocalFoodBackend.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "C:/Users/rapha",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="go build LocalFoodBackend" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="LocalFoodBackend" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="LocalFoodBackend" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build LocalFoodBackend" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-gosdk-266795519c66-911b893a1778-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-233.13135.104" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>

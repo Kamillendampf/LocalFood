@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; width: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: floralwhite;}
+
+
+.margin-auto0{
+  margin: 0 auto;
+}
+
+.margin-bottom-10px{
+  margin-bottom: 10px;
+}
+
+.margin-bottom-5px{
+  margin-bottom: 5px;
+}
+
+.txt-prim-color {
+  color: seagreen;
+}
+
+.bc-prim-color{
+  background-color: seagreen;
+}
+
+.padding-left-right-10px{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+

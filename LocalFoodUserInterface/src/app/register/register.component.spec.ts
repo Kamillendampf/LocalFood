@@ -55,9 +55,9 @@ describe('RegisterComponent', () => {
     expect(component.hide).toBeTrue();
   });
 
-  it('should navigate to /main on register', () => {
+  it('should navigate to /home on register', () => {
     component.onRegister();
-    expect(router.navigate).toHaveBeenCalledWith(['main']);
+    expect(router.navigate).toHaveBeenCalledWith(['/home']);
   });
 
   it('should submit the form if it is valid', () => {
@@ -67,6 +67,6 @@ describe('RegisterComponent', () => {
       password: 'password'
     });
     component.onRegister();
-    expect(router.navigate).toHaveBeenCalledWith(['main']);
+    expect(router.navigate).toHaveBeenCalledWith(['/home']);
   });
 });

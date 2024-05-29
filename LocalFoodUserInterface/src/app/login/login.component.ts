@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {LoginServiceService} from "./loginServices/login-service.service";
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -9,8 +9,6 @@ import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-
 
 
 @Component({
@@ -84,10 +82,11 @@ export class LoginComponent {
   async onLogin() {
     this.credentialKey = CryptoJS.SHA256(this.loginForm.get('email')?.value + this.loginForm.get('password')?.value).toString(CryptoJS.enc.Hex);
     console.log(this.credentialKey)
+    this.router.navigate(['/home'])
     this.login.loginRequest(this.credentialKey).subscribe((response): void => {
       const js = JSON.stringify(response)
       //const companys = JSON.parse(js)
-      this.router.navigate(['/register'])
+      this.router.navigate(['/home'])
     }, error => {
       if (error.status == 401) {
         console.info("status is unauthorized")

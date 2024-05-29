@@ -69,7 +69,7 @@ export class RegisterComponent {
       password: new FormControl('', [Validators.required]),
     })
   onRegister(){
-    this.router.navigate(['main'])
+    this.router.navigate(['/home'])
   }
   hideEvent(event: MouseEvent) {
     this.hide = !this.hide;

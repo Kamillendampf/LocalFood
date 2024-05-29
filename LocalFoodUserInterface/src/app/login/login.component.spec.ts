@@ -12,7 +12,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import * as CryptoJS from "crypto-js";
-import {of} from "rxjs";
+import {of, throwError} from "rxjs";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -71,4 +71,21 @@ describe('LoginComponent', () => {
     component.onRegister();
     expect(router.navigate).toHaveBeenCalledWith(['/register']);
   });
+
+  it('should handle 401 error', async () => {
+    // Mock form values
+    component.loginForm.setValue({ email: 'test@test.com', password: 'password' });
+
+    // Mock the loginRequest to return an error with status 401
+    loginService.loginRequest.and.returnValue(throwError({ status: 401 }));
+
+    // Spy on console.info
+    spyOn(console, 'info');
+
+    await component.onLogin();
+
+    expect(console.info).toHaveBeenCalledWith('status is unauthorized');
+    expect(router.navigate).toHaveBeenCalledWith(['/home']);
+  });
+
 });

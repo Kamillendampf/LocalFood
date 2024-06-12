@@ -1,0 +1,18 @@
+# Verwende das offizielle Golang-Image als Basis
+FROM golang:latest
+
+# Setze das Arbeitsverzeichnis innerhalb des Containers
+WORKDIR /app
+
+# Kopiere den Go-Quellcode in das Arbeitsverzeichnis des Containers
+COPY . .
+
+# Installiere Abhängigkeiten, falls erforderlich
+RUN go mod tidy
+
+# Führe den Build-Befehl aus
+RUN go build -o bin .
+
+# Setze den Befehl, der beim Starten des Containers ausgeführt werden soll
+CMD ["./bin"]
+

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
@@ -10,7 +10,7 @@ import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {RegisterService} from "./register.service";
 import * as CryptoJS from "crypto-js";
-import {response} from "express";
+import {UserprofileService} from "../UserProfile/userprofile.service";
 
 @Component({
   selector: 'app-register',
@@ -73,7 +73,8 @@ import {response} from "express";
 export class RegisterComponent {
   hide = true
   selectedOption: boolean = false;
-  constructor(private router: Router, private snackbar: MatSnackBar, private register : RegisterService) {
+  constructor(private router: Router, private snackbar: MatSnackBar, private register : RegisterService,
+  private userProfil: UserprofileService) {
   }
 
   registerForm: FormGroup<{ name: FormControl, email: FormControl, password: FormControl }> =
@@ -85,7 +86,7 @@ export class RegisterComponent {
   onRegister() {
     //TODO: Füge den code für das übertragen von den neuen Nutzerdaten an den Server ein.
     if (this.selectedOption && this.registerForm.get('name')?.value !== "" && this.registerForm.get('email')?.value !== "" && this.registerForm.get('password')?.value !== "") {
-      this.registerUser().then(r => console.log("move on"))//this.router.navigate(['/home']))
+      this.registerUser()
     } else {
       this.snackbar.open('Wählen sie die passende Kontoart', '', {duration: 3000});
     }
@@ -102,9 +103,17 @@ export class RegisterComponent {
       console.log(email)
       const password = this.registerForm.get('password')?.value;
 
-      const company: boolean = this.selectedOption
+      const profileType: boolean = this.selectedOption
 
       const identKey = CryptoJS.SHA256(email + password).toString(CryptoJS.enc.Hex)
-      this.register.registerUser(identKey, company).subscribe((response) => console.log(JSON.stringify(response)))
+
+      this.userProfil.setUserIdentKey = identKey
+      this.register.registerUser(identKey, username, email, profileType).subscribe((response): void => {
+        this.router.navigate(['/home'])
+      }, error => {
+        if (error.status == 405) {
+          this.snackbar.open('Bei der Übermittlung der Informationen ist ein Fehler aufgetreten.', '', {duration: 3000});
+        }
+      })
     }
 }

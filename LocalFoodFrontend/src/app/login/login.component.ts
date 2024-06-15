@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginServiceService} from "./loginServices/login-service.service";
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
@@ -9,6 +9,7 @@ import {MatFormField, MatLabel, MatSuffix} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {HttpClient} from "@angular/common/http";
+import {UserprofileService} from "../UserProfile/userprofile.service";
 
 
 @Component({
@@ -63,11 +64,11 @@ import {HttpClient} from "@angular/common/http";
   styleUrl: './login.component.scss',
   providers:[HttpClient]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   logo = "../../assets/logo.png"
   hide : boolean = true;
 
-  constructor(private login : LoginServiceService, private router: Router,) {
+  constructor(private login : LoginServiceService, private router: Router, private user : UserprofileService) {
   }
 
   loginForm: FormGroup<{ email: FormControl, password: FormControl }> =
@@ -76,16 +77,32 @@ export class LoginComponent {
       password: new FormControl('', [Validators.required]),
     })
 
+  ngOnInit() {
+    this.user.getRememberMe()
+    if (this.user.getIdentKey != undefined){
+      this.login.loginRequest(this.user.getIdentKey.toString()).subscribe((response): void => {
+        const js = JSON.stringify(response)
+        //const companys = JSON.parse(js)
+        this.router.navigate(['/home'])
+      }, error => {
+        if (error.status == 401) {
+          console.info("status is unauthorized")
+        }
+      })
+    }
+  }
+
 
   hideEvent(event: MouseEvent) {
     this.hide = !this.hide;
     event.stopPropagation();
   }
  credentialKey : string = ""
+
   async onLogin() {
     this.credentialKey = CryptoJS.SHA256(this.loginForm.get('email')?.value + this.loginForm.get('password')?.value).toString(CryptoJS.enc.Hex);
-    console.log(this.credentialKey)
-    this.router.navigate(['/home'])
+
+    //this.router.navigate(['/home'])
     this.login.loginRequest(this.credentialKey).subscribe((response): void => {
       const js = JSON.stringify(response)
       //const companys = JSON.parse(js)

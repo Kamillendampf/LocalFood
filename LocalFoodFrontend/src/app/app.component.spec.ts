@@ -17,6 +17,6 @@ describe('AppComponent', () => {
   it(`should have the 'LocalFoodUserInterface' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('LocalFoodUserInterface');
+    expect(app.title).toEqual('LocalFood');
   });
 });

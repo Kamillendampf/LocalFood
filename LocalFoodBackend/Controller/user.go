@@ -45,5 +45,8 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+	} else {
+		log.Printf("Register: You send a Request with the wrong method.")
+		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
 }

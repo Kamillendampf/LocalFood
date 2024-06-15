@@ -39,7 +39,7 @@ func TestRegister(t *testing.T) {
 	}
 
 	// Test, wenn die Methode nicht POST ist
-	req, err = http.NewRequest("GET", "/register", nil)
+	req, err = http.NewRequest("POST", "/register", nil)
 	if err != nil {
 		t.Fatal(err)
 	}

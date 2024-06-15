@@ -73,7 +73,7 @@ jobs:
       run: go test
       working-directory: ./LocalFoodBackend/Tests
 
-    -name: Run Go Coverage
+    - name: Run Go Coverage
     run: go test -cover
     working-directory: ./LocalFoodBackend/Tests
 

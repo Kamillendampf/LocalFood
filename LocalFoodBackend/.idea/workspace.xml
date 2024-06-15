@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d270b76-f63f-45c6-94b7-7a7e4eb4a6b8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Controller/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/Test/User_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/controller_user_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/controller_user_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/controlle_landingPage_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/controlle_landingPage_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,35 +32,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;Docker.Docker: Compose Deployment.executor&quot;: &quot;Run&quot;,
-    &quot;Go Build.go build LocalFoodBackend.executor&quot;: &quot;Run&quot;,
-    &quot;Go Test.TestLandingPage in LocalFoodBackend/Controller/Tests.executor&quot;: &quot;Run&quot;,
-    &quot;Go Test.TestLandingPageWithFilePath in LocalFoodBackend/Controller/Tests.executor&quot;: &quot;Run&quot;,
-    &quot;Go Test.go test LocalFoodBackend/Controller/Tests.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/rapha/IdeaProjects/LocalFood&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
+    "Docker.Docker: Compose Deployment.executor": "Run",
+    "Go Build.go build LocalFoodBackend.executor": "Run",
+    "Go Test.TestLandingPage in LocalFoodBackend/Controller/Tests.executor": "Run",
+    "Go Test.TestLandingPageWithFilePath in LocalFoodBackend/Controller/Tests.executor": "Run",
+    "Go Test.TestRegister in LocalFoodBackend/Tests.executor": "Run",
+    "Go Test.go test LocalFoodBackend/Controller/Tests.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "C:/Users/rapha/IdeaProjects/LocalFood",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\rapha\IdeaProjects\LocalFood\LocalFoodBackend\Docker" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestLandingPageWithFilePath in LocalFoodBackend/Controller/Tests">
+  <component name="RunManager" selected="Go Test.TestRegister in LocalFoodBackend/Tests">
     <configuration name="go build LocalFoodBackend" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="LocalFoodBackend" />
       <working_directory value="$PROJECT_DIR$" />
@@ -95,6 +95,18 @@
       <pattern value="^\QTestLandingPageWithFilePath\E$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestRegister in LocalFoodBackend/Tests" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="LocalFoodBackend" />
+      <working_directory value="$PROJECT_DIR$/Tests" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="LocalFoodBackend/Tests" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestRegister\E$" />
+      <method v="2" />
+    </configuration>
     <configuration name="go test LocalFoodBackend/Controller/Tests" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="LocalFoodBackend" />
       <working_directory value="$PROJECT_DIR$/Controller/Tests" />
@@ -106,14 +118,6 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
-    <configuration name="Docker: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="sourceFilePath" value="Docker/docker-compose.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
       <deployment type="docker-compose.yml">
         <settings />
@@ -122,11 +126,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestRegister in LocalFoodBackend/Tests" />
         <item itemvalue="Go Test.TestLandingPageWithFilePath in LocalFoodBackend/Controller/Tests" />
         <item itemvalue="Go Test.TestLandingPage in LocalFoodBackend/Controller/Tests" />
         <item itemvalue="Go Test.go test LocalFoodBackend/Controller/Tests" />
         <item itemvalue="Go Build.go build LocalFoodBackend" />
-        <item itemvalue="Docker.Docker: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>

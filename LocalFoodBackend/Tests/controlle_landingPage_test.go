@@ -9,7 +9,7 @@ import (
 
 func TestLandingPage(t *testing.T) {
 	// Erstellen einer HTTP-Anfrage für die LandingPage
-	req, err := http.NewRequest("GET", "/", nil)
+	req, err := http.NewRequest("POST", "/", nil)
 	if err != nil {
 		t.Fatal(err)
 	}

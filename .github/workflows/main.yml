@@ -53,6 +53,30 @@ jobs:
       run: go build 
       working-directory: ./LocalFoodBackend
 
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+
+    - name: Set up Docker Compose
+      run: sudo apt-get update && sudo apt-get install docker-compose -y
+
+    - name: Build and run Docker Compose
+      run: docker-compose up -d
+      working-directory: ./LocalFoodBackend/Docker
+
+    - name: Wait for services to be ready
+      run: |
+        while ! docker-compose exec -T db pg_isready -U postgres; do
+          echo "Waiting for postgres service to be ready..."
+          sleep 5
+        done
+
     - name: Run Go tests
       run: go test
       working-directory: ./LocalFoodBackend/Tests

@@ -33,7 +33,7 @@ jobs:
       working-directory: ./LocalFoodFrontend
 
     - name: Run Angular tests
-      run: ng test --watch=false --browsers=ChromeHeadless
+      run: ng test --code-coverage --watch=false --browsers=ChromeHeadless
       working-directory: ./LocalFoodFrontend
 
   build-and-test-go:

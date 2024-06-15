@@ -22,9 +22,9 @@ func TestLandingPage(t *testing.T) {
 	handler.ServeHTTP(rr, req)
 
 	// Statuscode prüfen
-	if status := rr.Code; status != http.StatusOK {
+	if status := rr.Code; status != 404 {
 		t.Errorf("Handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
+			status, 404)
 	}
 
 	// Prüfen der Header

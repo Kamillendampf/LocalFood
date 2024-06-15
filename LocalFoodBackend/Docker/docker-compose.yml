@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+
+  db:
+    container_name: user-container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: lfood
+    ports:
+      - "5432:5432"
+
+
+  pgadmin:
+    container_name: pgadmin4-container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: a@a.de
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"

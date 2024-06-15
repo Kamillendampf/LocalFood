@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test-angular:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '22.11.1'
+
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./LocalFoodFrontend
+
+    - name: Build Angular application
+      run: ng build --prod
+      working-directory: ./LocalFoodFrontend
+
+    - name: Run Angular tests
+      run: ng test --watch=false --browsers=ChromeHeadless
+      working-directory: ./LocalFoodFrontend
+
+  build-and-test-go:
+    runs-on: ubuntu-latest
+    needs: build-and-test-angular
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '1.22.1'
+
+    - name: Build Go application
+      run: go build -v ./LocalFoodBackend
+
+    - name: Run Go tests
+      run: go test -v ./LocalFoodBackend/...

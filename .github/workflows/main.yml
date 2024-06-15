@@ -53,4 +53,4 @@ jobs:
       run: go build -v ./LocalFoodBackend
 
     - name: Run Go tests
-      run: go test -v ./LocalFoodBackend/...
+      run: go test -v ./LocalFoodBackend

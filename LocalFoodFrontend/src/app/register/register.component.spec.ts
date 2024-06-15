@@ -126,8 +126,7 @@ describe('RegisterComponent', () => {
 
     component.registerUser();
 
-    expect(userprofileService.setUserIdentKey).toHaveBeenCalledWith(identKey);
-    expect(registerService.registerUser).toHaveBeenCalledWith(identKey, true);
+    expect(registerService.registerUser).toHaveBeenCalledWith(identKey, "John Doe", "john.doe@example.com", true, );
   });
 
   it('should show snackbar on registration error', () => {

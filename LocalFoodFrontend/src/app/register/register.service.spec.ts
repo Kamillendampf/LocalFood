@@ -31,9 +31,11 @@ describe('RegisterService', () => {
 
   it('should handle error response', () => {
     const identKey = 'testKey';
-    const company = true;
+    const name = "Jon Doe";
+    const email = "jon.doe@mail.de";
+    const profileType = true;
 
-    service.registerUser(identKey, company).subscribe(
+    service.registerUser(identKey, name, email, profileType).subscribe(
       () => fail('should have failed with the 405 error'),
       (error) => {
         expect(error.status).toBe(405);

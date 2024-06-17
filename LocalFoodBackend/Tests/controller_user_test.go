@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -13,7 +14,7 @@ import (
 
 // TestRegister prüft die Register-Funktion
 func TestRegister(t *testing.T) {
-	fmt.Print("test register with POST")
+	log.Print("it should respondes statuscode 200")
 	// Testdaten
 	user := Struct.User{
 		Name:        "testuser",
@@ -38,8 +39,11 @@ func TestRegister(t *testing.T) {
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("Handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
+	} else {
+		fmt.Print("PASSED\n")
 	}
 
+	log.Printf("it should responde %v", http.StatusMethodNotAllowed)
 	// Test, wenn die Methode nicht POST ist
 	fmt.Print("Test Register with GET")
 	req, err = http.NewRequest("GET", "/register", nil)
@@ -53,6 +57,8 @@ func TestRegister(t *testing.T) {
 	if status := rr.Code; status != http.StatusMethodNotAllowed {
 		t.Errorf("Handler returned wrong status code for GET: got %v want %v",
 			status, http.StatusMethodNotAllowed)
+	} else {
+		fmt.Print("PASSED\n")
 	}
 }
 
@@ -76,13 +82,17 @@ func TestLoginUser(t *testing.T) {
 	// Anfrage ausführen
 	handler.ServeHTTP(rr, req)
 
+	log.Print("User should be loged in")
 	// Statuscode prüfen
 	if status := rr.Code; status != http.StatusOK {
 		t.Errorf("Handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
+	} else {
+		fmt.Print("PASSED\n")
 	}
 
 	// Test, wenn die Methode nicht POST ist
+	log.Printf("it should be ignored and response should be %d", http.StatusMethodNotAllowed)
 	req, err = http.NewRequest("GET", "/login", nil)
 	if err != nil {
 		t.Fatal(err)
@@ -94,5 +104,7 @@ func TestLoginUser(t *testing.T) {
 	if status := rr.Code; status != http.StatusMethodNotAllowed {
 		t.Errorf("Handler returned wrong status code for GET: got %v want %v",
 			status, http.StatusMethodNotAllowed)
+	} else {
+		fmt.Print("PASSED\n")
 	}
 }

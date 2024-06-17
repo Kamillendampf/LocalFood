@@ -11,6 +11,7 @@ func main() {
 
 	http.HandleFunc("/", LandingPage)
 	http.HandleFunc("/register", Register)
+	http.HandleFunc("/login", LoginUser)
 
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {

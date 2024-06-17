@@ -38,7 +38,7 @@ func TestLandingPage(t *testing.T) {
 		"img-src 'self';" +
 		"script-src 'self';" +
 		"font-src 'self' https://fonts.gstatic.com;" +
-		"connect-src 'self' http://localhost:8080;" +
+		"connect-src 'self' http://localhost:8080 https://nominatim.openstreetmap.org;" +
 		"object-src 'none';" +
 		"base-uri 'self';" +
 		"form-action 'self';" +

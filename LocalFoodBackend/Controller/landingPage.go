@@ -11,7 +11,7 @@ func LandingPage(w http.ResponseWriter, r *http.Request) {
 		"img-src 'self';" +
 		"script-src 'self';" +
 		"font-src 'self' https://fonts.gstatic.com;" +
-		"connect-src 'self' http://localhost:8080;" +
+		"connect-src 'self' localhost:8080 https://nominatim.openstreetmap.org;" +
 		"object-src 'none';" +
 		"base-uri 'self';" +
 		"form-action 'self';" +

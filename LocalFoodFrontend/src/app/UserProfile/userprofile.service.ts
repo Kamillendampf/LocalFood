@@ -9,7 +9,7 @@ export class UserprofileService {
 
   private name : string = ""
   private email : string  = ""
-  private userType : boolean = false
+  private progileType : boolean = false
   private userIdentKey : string | undefined = ""
 
   set setUserIdentKey( userIdentKey : string){
@@ -28,6 +28,10 @@ export class UserprofileService {
     this.userIdentKey = userIdentKey
   }
 
+  set setProfileType(profileType : boolean){
+    this.progileType = profileType
+  }
+
   get getUserName() : string{
     return this.name
   }
@@ -38,6 +42,10 @@ export class UserprofileService {
 
   get getIdentKey() : string | undefined{
     return this.userIdentKey
+  }
+
+  get getProfileType(){
+    return this.progileType
   }
 
   setRememberMe(){

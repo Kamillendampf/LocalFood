@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {Router, RouterOutlet} from "@angular/router";
+import {UserprofileService} from "../UserProfile/userprofile.service";
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,7 @@ import {Router, RouterOutlet} from "@angular/router";
     RouterOutlet
   ],
   template: `
-    @if (false){
+    @if (this.user.getProfileType){
    <div class="w-100 h-auto d-flex justify-content-center bc-prim-color">
      <div class="w-33 d-flex justify-content-center">
        <button mat-icon-button style="background-color: seagreen; color: floralwhite; height: 60px; width: 60px;" id="js-profileButton" (click)="onProfile()">
@@ -60,7 +61,7 @@ import {Router, RouterOutlet} from "@angular/router";
 })
 export class NavbarComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public user : UserprofileService) {}
   onProfile(){
     this.router.navigate(['/profil'])
   }

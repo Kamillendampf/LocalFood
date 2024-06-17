@@ -105,7 +105,13 @@ export class LoginComponent implements OnInit{
     //this.router.navigate(['/home'])
     this.login.loginRequest(this.credentialKey).subscribe((response): void => {
       const js = JSON.stringify(response)
-      //const companys = JSON.parse(js)
+      const jsonObj = JSON.parse(js)
+
+      this.user.setIdentKey = jsonObj.identKey
+      this.user.setUserEmail = jsonObj.email
+      this.user.setUserName = jsonObj.name
+      this.user.setProfileType = jsonObj.profileType
+
       this.router.navigate(['/home'])
     }, error => {
       if (error.status == 401) {

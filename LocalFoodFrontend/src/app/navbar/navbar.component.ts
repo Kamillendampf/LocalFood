@@ -13,10 +13,13 @@ import {UserprofileService} from "../UserProfile/userprofile.service";
     RouterOutlet
   ],
   template: `
-    @if (this.user.getProfileType){
+    @if (this.user.getProfileType == false){
    <div class="w-100 h-auto d-flex justify-content-center bc-prim-color">
+
      <div class="w-33 d-flex justify-content-center">
        <button mat-icon-button style="background-color: seagreen; color: floralwhite; height: 60px; width: 60px;" id="js-profileButton" (click)="onProfile()">
+         {{this.user.getProfileType}}
+         Privat
          <mat-icon>person</mat-icon>
        </button>
      </div>
@@ -35,6 +38,8 @@ import {UserprofileService} from "../UserProfile/userprofile.service";
       <div class="w-100 h-auto d-flex justify-content-center bc-prim-color">
         <div class="w-33 d-flex justify-content-center">
           <button mat-icon-button style="background-color: seagreen; color: floralwhite; height: 60px; width: 60px;" id="js-profileButton" (click)="onProfile()">
+            {{this.user.getProfileType}}
+            Unternehmen
             <mat-icon>person</mat-icon>
           </button>
         </div>

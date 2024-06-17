@@ -52,7 +52,7 @@ export class MainComponent implements OnInit{
   currentStreet : string = "";
   currentCity : string = ''
 
-  displayTest = ['','','','','','','','','','','','','','','','']
+
   constructor(private reversGeolocation : ReversGeodecoderService) {
   }
 

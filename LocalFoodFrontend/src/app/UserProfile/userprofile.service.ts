@@ -49,10 +49,10 @@ export class UserprofileService {
   }
 
   setRememberMe(){
-    sessionStorage.setItem("key", <string>this.userIdentKey)
+    localStorage.setItem("key", <string>this.userIdentKey)
   }
 
   getRememberMe(){
-    this.userIdentKey = sessionStorage.getItem("key")?.toString()
+    this.userIdentKey = localStorage.getItem("key")?.toString()
   }
 }

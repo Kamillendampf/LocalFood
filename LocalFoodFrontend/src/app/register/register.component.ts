@@ -109,6 +109,11 @@ export class RegisterComponent {
 
       this.userProfil.setUserIdentKey = identKey
       this.register.registerUser(identKey, username, email, profileType).subscribe((response): void => {
+        this.userProfil.setUserEmail= email
+        this.userProfil.setProfileType = profileType
+        this.userProfil.setUserName = username
+        this.userProfil.setUserIdentKey = identKey
+        this.userProfil.setRememberMe()
         this.router.navigate(['/home'])
       }, error => {
         if (error.status == 405) {

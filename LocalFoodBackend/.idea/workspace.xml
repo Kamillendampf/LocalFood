@@ -6,17 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4d270b76-f63f-45c6-94b7-7a7e4eb4a6b8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/landingPage.go" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/landingPage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DAO/User.go" beforeDir="false" afterPath="$PROJECT_DIR$/DAO/User.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/User.go" beforeDir="false" afterPath="$PROJECT_DIR$/Service/User.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Struct/UserStruct.go" beforeDir="false" afterPath="$PROJECT_DIR$/Struct/UserStruct.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/controlle_landingPage_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/controlle_landingPage_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/UserProfile/userprofile.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/UserProfile/userprofile.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/login/login.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/login/login.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/login/loginServices/login-service.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/login/loginServices/login-service.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/navbar/navbar.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/navbar/navbar.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

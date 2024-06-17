@@ -78,11 +78,17 @@ export class LoginComponent implements OnInit{
     })
 
   ngOnInit() {
+    //this.router.navigate(['/home'])
     this.user.getRememberMe()
     if (this.user.getIdentKey != undefined){
       this.login.loginRequest(this.user.getIdentKey.toString()).subscribe((response): void => {
         const js = JSON.stringify(response)
-        //const companys = JSON.parse(js)
+        const content = JSON.parse(js)
+        this.user.setUserIdentKey = content.identKey
+        this.user.setUserName = content.name
+        this.user.setUserEmail = content.email
+        this.user.setProfileType = content.profileType
+
         this.router.navigate(['/home'])
       }, error => {
         if (error.status == 401) {
@@ -111,6 +117,7 @@ export class LoginComponent implements OnInit{
       this.user.setUserEmail = jsonObj.email
       this.user.setUserName = jsonObj.name
       this.user.setProfileType = jsonObj.profileType
+      this.user.setRememberMe()
 
       this.router.navigate(['/home'])
     }, error => {

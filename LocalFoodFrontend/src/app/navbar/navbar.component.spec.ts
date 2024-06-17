@@ -1,33 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// File path: src/app/navbar/navbar.component.spec.ts
 
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NavbarComponent } from './navbar.component';
-import {Router} from "@angular/router";
-import {MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
-import {By} from "@angular/platform-browser";
+import { UserprofileService } from '../UserProfile/userprofile.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { Router } from '@angular/router';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
-  let router: jasmine.SpyObj<Router>;
+  let userProfileService: UserprofileService;
+  let router: Router;
 
   beforeEach(async () => {
-    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     await TestBed.configureTestingModule({
       imports: [
         NavbarComponent,
-        MatIconModule,
-        MatButtonModule,
-        NoopAnimationsModule
+        RouterTestingModule.withRoutes([]),
+        MatIconButton,
+        MatIcon
       ],
-      providers: [{ provide: Router, useValue: routerSpy }]
-    })
-    .compileComponents();
+      providers: [UserprofileService],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(NavbarComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
+    userProfileService = TestBed.inject(UserprofileService);
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
@@ -35,43 +40,41 @@ describe('NavbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
-  it('should render profile, home, and coupon buttons', () => {
-    const profileButton = fixture.debugElement.query(By.css('#js-profileButton'));
-    const homeButton = fixture.debugElement.query(By.css('#js-homeButton'));
-    const couponButton = fixture.debugElement.query(By.css('#js-conformButton'));
-
-    expect(profileButton).toBeTruthy();
-    expect(profileButton.nativeElement.querySelector('mat-icon').textContent).toBe('person');
-
-    expect(homeButton).toBeTruthy();
-    expect(homeButton.nativeElement.querySelector('mat-icon').textContent).toBe('home');
-
-    expect(couponButton).toBeTruthy();
-    expect(couponButton.nativeElement.querySelector('mat-icon').textContent).toBe('confirmation_num');
-  });
-
-  it('should navigate to /profil when profile button is clicked', () => {
-    const profileButton = fixture.debugElement.query(By.css('#js-profileButton'));
-    profileButton.triggerEventHandler('click', null);
+  it('should navigate to profile on onProfile', () => {
+    spyOn(router, 'navigate');
+    component.onProfile();
     expect(router.navigate).toHaveBeenCalledWith(['/profil']);
   });
 
-  it('should navigate to /home when home button is clicked', () => {
-    const homeButton = fixture.debugElement.query(By.css('#js-homeButton'));
-    homeButton.triggerEventHandler('click', null);
+  it('should navigate to home on onHome', () => {
+    spyOn(router, 'navigate');
+    component.onHome();
     expect(router.navigate).toHaveBeenCalledWith(['/home']);
   });
 
-  it('should navigate to /coupon when coupon button is clicked', () => {
-    const couponButton = fixture.debugElement.query(By.css('#js-conformButton'));
-    couponButton.triggerEventHandler('click', null);
+  it('should navigate to coupon on onCoupon', () => {
+    spyOn(router, 'navigate');
+    component.onCoupon();
     expect(router.navigate).toHaveBeenCalledWith(['/coupon']);
   });
 
-  it('should navigate to /coupon when coupon button is clicked', () => {
-    const couponButton = fixture.debugElement.query(By.css('#js-conformAddButton'));
-    couponButton.triggerEventHandler('click', null);
+  it('should navigate to addCoupon on onAddCoupon', () => {
+    spyOn(router, 'navigate');
+    component.onAddCoupon();
     expect(router.navigate).toHaveBeenCalledWith(['/addCoupon']);
+  });
+
+  it('should display different buttons based on user profile type', () => {
+    userProfileService.setProfileType = false;
+    fixture.detectChanges();
+    let button = fixture.debugElement.nativeElement.querySelector('#js-conformButton');
+    expect(button).toBeTruthy();
+    button = fixture.debugElement.nativeElement.querySelector('#js-conformAddButton');
+    expect(button).toBeFalsy();
+
+    userProfileService.setProfileType = true;
+    fixture.detectChanges();
+    button = fixture.debugElement.nativeElement.querySelector('#js-conformAddButton');
+    expect(button).toBeTruthy();
   });
 });

@@ -1,13 +1,13 @@
-import { TestBed } from '@angular/core/testing';
+// File path: src/app/login/loginServices/login-service.service.spec.ts
 
-import { environment} from "../../../../environment/environment";
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { LoginServiceService } from './login-service.service';
-import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
-import {HttpClient} from "@angular/common/http";
+import { environment } from '../../../../environment/environment';
 
 describe('LoginServiceService', () => {
   let service: LoginServiceService;
-  let httpTestingController : HttpTestingController
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -15,32 +15,52 @@ describe('LoginServiceService', () => {
       providers: [LoginServiceService]
     });
     service = TestBed.inject(LoginServiceService);
-    httpTestingController = TestBed.inject(HttpTestingController);
-
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    httpTestingController.verify();
+    httpMock.verify();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should use localhost:8080',  () => {
-    const serverAddras =  `${environment.apiUrl}`;
-    expect(serverAddras).toEqual("localhost:8080")
+  it('should make a POST request to login', () => {
+    const identKey = '12345';
+    const mockResponse = {
+      identKey: '12345',
+      email: 'test@example.com',
+      name: 'Test User',
+      profileType: 'user'
+    };
+
+    service.loginRequest(identKey).subscribe(response => {
+      expect(response).toEqual(mockResponse as unknown as JSON);
+    });
+
+    const req = httpMock.expectOne('http://' + environment.apiUrl + '/login');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ identKey: identKey });
+
+    req.flush(mockResponse);
   });
 
-  it('should send login request to the correct URL', () => {
-    const testData = 'testUserId';
-    const expectedUrl = `${environment.apiUrl}/login`;
-    service.loginRequest(testData).subscribe();
+  it('should handle error response', () => {
+    const identKey = 'wrongKey';
+    const mockErrorResponse = { status: 401, statusText: 'Unauthorized' };
 
-    const req = httpTestingController.expectOne(expectedUrl);
-    expect(req.request.method).toEqual('POST');
-    expect(req.request.body).toEqual({ UserIdentificationKey: testData });
+    service.loginRequest(identKey).subscribe(
+      response => fail('expected an error, not a response'),
+      error => {
+        expect(error.status).toBe(401);
+      }
+    );
 
-    req.flush({});
+    const req = httpMock.expectOne('http://' + environment.apiUrl + '/login');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({ identKey: identKey });
+
+    req.flush(null, mockErrorResponse);
   });
 });

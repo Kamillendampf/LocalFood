@@ -68,6 +68,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class AddCouponComponent {
   constructor(private snackBar:MatSnackBar) {
   }
+  isLocationOn :boolean = true
+  latitude :number = 0.0
+  longitude : number = 0.0
   artikelForm: FormGroup<{ kategorie: FormControl, artikelart: FormControl, name: FormControl, beschreibung: FormControl }> =
     new FormGroup<{ kategorie: FormControl, artikelart: FormControl, name: FormControl; beschreibung: FormControl }>({
       kategorie : new FormControl('', [Validators.required]),
@@ -85,9 +88,7 @@ export class AddCouponComponent {
     }
   }
 
-  isLocationOn :boolean = true
-  latitude :number = 0.0
-  longitude : number = 0.0
+
   getCurrentCoordinates(){
     if(navigator.geolocation && this.isLocationOn){
       navigator.geolocation.getCurrentPosition((position)=>{

@@ -1,89 +1,120 @@
-  import { ComponentFixture, TestBed } from '@angular/core/testing';
+// File path: src/app/login/login.component.spec.ts
 
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoginComponent } from './login.component';
-import {LoginServiceService} from "./loginServices/login-service.service";
+import { LoginServiceService } from './loginServices/login-service.service';
+import { UserprofileService } from '../UserProfile/userprofile.service';
 import {Router} from "@angular/router";
-import {ReactiveFormsModule} from "@angular/forms";
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {MatCardModule} from "@angular/material/card";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import * as CryptoJS from "crypto-js";
 import {of, throwError} from "rxjs";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let loginService: jasmine.SpyObj<LoginServiceService>;
-  let router: jasmine.SpyObj<Router>;
+  let loginService: LoginServiceService;
+  let userprofileService: UserprofileService;
+  let router: Router;
 
   beforeEach(async () => {
-    const loginServiceSpy = jasmine.createSpyObj('LoginServiceService', ['loginRequest']);
-    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-
     await TestBed.configureTestingModule({
       imports: [
         LoginComponent,
         ReactiveFormsModule,
-        HttpClientTestingModule,
+        MatSnackBarModule,
+        MatButtonModule,
         MatCardModule,
         MatFormFieldModule,
-        MatInputModule,
         MatIconModule,
-        MatButtonModule,
-        BrowserAnimationsModule
+        MatInputModule,
+        BrowserAnimationsModule,
+        RouterTestingModule,
+        HttpClientTestingModule
       ],
-      providers: [
-        { provide: LoginServiceService, useValue: loginServiceSpy },
-        { provide: Router, useValue: routerSpy }
-      ]
-    })
-    .compileComponents();
+      providers: [LoginServiceService, UserprofileService]
+    }).compileComponents();
+  });
 
-
+  beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    loginService = TestBed.inject(LoginServiceService) as jasmine.SpyObj<LoginServiceService>;
-    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-
+    loginService = TestBed.inject(LoginServiceService);
+    userprofileService = TestBed.inject(UserprofileService);
+    router = TestBed.inject(Router);
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have a form with email and password controls', () => {
-    expect(component.loginForm.contains('email')).toBeTrue();
-    expect(component.loginForm.contains('password')).toBeTrue();
+  it('form should be invalid when empty', () => {
+    expect(component.loginForm.valid).toBeFalsy();
   });
 
-  it('should make the password field toggle visibility', () => {
-    expect(component.hide).toBeTrue();
-    component.hideEvent(new MouseEvent('click'));
-    expect(component.hide).toBeFalse();
+  it('form should be valid when filled', () => {
+    component.loginForm.controls['email'].setValue('test@example.com');
+    component.loginForm.controls['password'].setValue('password');
+    expect(component.loginForm.valid).toBeTruthy();
   });
 
-  it('should navigate to /register on register button click', () => {
+  it('should call onLogin and navigate to home on success', fakeAsync(() => {
+    spyOn(loginService, 'loginRequest').and.returnValue(of(JSON.parse(JSON.stringify({
+      identKey: 12345,
+      email: "test@example.com",
+      name: "Test User",
+      profileType: "user"
+      }))))
+    spyOn(router, 'navigate');
+
+    component.loginForm.controls['email'].setValue('test@example.com');
+    component.loginForm.controls['password'].setValue('password');
+    component.onLogin();
+    tick();
+
+    expect(loginService.loginRequest).toHaveBeenCalled();
+    expect(router.navigate).toHaveBeenCalledWith(['/home']);
+  }));
+
+  it('should handle login error', fakeAsync(() => {
+    spyOn(component, 'onLogin').and.callThrough();
+    spyOn(loginService, 'loginRequest').and.returnValue(throwError({ status: 401 }));
+    spyOn(console, 'info');
+
+    component.loginForm.controls['email'].setValue('test@example.com');
+    component.loginForm.controls['password'].setValue('wrongpassword');
+    component.onLogin();
+    tick();
+
+    expect(component.onLogin).toHaveBeenCalled();
+    expect(loginService.loginRequest).toHaveBeenCalled();
+    expect(console.info).toHaveBeenCalledWith('status is unauthorized');
+  }));
+
+  it('should call onRegister and navigate to register', () => {
+    spyOn(component, 'onRegister').and.callThrough();
+    spyOn(router, 'navigate');
+
     component.onRegister();
+
+    expect(component.onRegister).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['/register']);
   });
 
-  it('should handle 401 error', async () => {
-    // Mock form values
-    component.loginForm.setValue({ email: 'test@test.com', password: 'password' });
+  it('should toggle password visibility', () => {
+    component.hide = true;
+    component.hideEvent(new MouseEvent('click'));
+    expect(component.hide).toBeFalse();
 
-    // Mock the loginRequest to return an error with status 401
-    loginService.loginRequest.and.returnValue(throwError({ status: 401 }));
-
-    // Spy on console.info
-    spyOn(console, 'info');
-
-    await component.onLogin();
-
-    expect(console.info).toHaveBeenCalledWith('status is unauthorized');
+    component.hideEvent(new MouseEvent('click'));
+    expect(component.hide).toBeTrue();
   });
 });

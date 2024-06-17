@@ -5,6 +5,7 @@ import (
 	"LocalFoodBackend/Struct"
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -12,6 +13,7 @@ import (
 
 // TestRegister prüft die Register-Funktion
 func TestRegister(t *testing.T) {
+	fmt.Print("test register with POST")
 	// Testdaten
 	user := Struct.User{
 		Name:        "testuser",
@@ -39,6 +41,7 @@ func TestRegister(t *testing.T) {
 	}
 
 	// Test, wenn die Methode nicht POST ist
+	fmt.Print("Test Register with GET")
 	req, err = http.NewRequest("GET", "/register", nil)
 	if err != nil {
 		t.Fatal(err)

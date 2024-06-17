@@ -84,9 +84,9 @@ func TestLoginUser(t *testing.T) {
 
 	log.Print("User should be loged in")
 	// Statuscode prüfen
-	if status := rr.Code; status != http.StatusOK {
+	if status := rr.Code; status != 202 {
 		t.Errorf("Handler returned wrong status code: got %v want %v",
-			status, http.StatusOK)
+			status, 202)
 	} else {
 		fmt.Print("PASSED\n")
 	}

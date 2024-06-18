@@ -10,7 +10,6 @@ import (
 )
 
 func Register(w http.ResponseWriter, r *http.Request) {
-	fmt.Print("Register wurde aufgerufen")
 	if r.Method == "POST" {
 		var _users Struct.User
 
@@ -19,8 +18,6 @@ func Register(w http.ResponseWriter, r *http.Request) {
 			log.Printf(err.Error())
 			return
 		}
-		fmt.Println("Der Nutzer hat folgende werte:")
-		fmt.Println(_users)
 		Service.AddUser(&_users)
 		fmt.Println(_users)
 		w.WriteHeader(http.StatusOK)

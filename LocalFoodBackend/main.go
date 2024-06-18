@@ -13,6 +13,9 @@ func main() {
 	http.HandleFunc("/register", Register)
 	http.HandleFunc("/login", LoginUser)
 
+	http.HandleFunc("/addCoupon", AddCoupon)
+	http.HandleFunc("/getAllCoupons", GetAllCoupons)
+
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal(err)

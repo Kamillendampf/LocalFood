@@ -27,7 +27,7 @@ import {Router} from "@angular/router";
        <mat-card-content  class="align-items-center justify-content-center">
          Name: {{this.user.getUserName}} <br>
          E-Mail: {{this.user.getUserEmail}} <br>
-         Account Typ: {{this.user.getProfileType}}<br>
+         Account Typ: {{this.user.getProfileType ? "Unternhemen" : "Privat"}}<br>
          <button mat-flat-button style="background-color: seagreen" (click)="logout()"> Logout </button>
        </mat-card-content>
      </mat-card>

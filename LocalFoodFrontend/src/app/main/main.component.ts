@@ -7,7 +7,9 @@ import {ReversGeodecoderService} from "./reversGeodecoder/revers-geodecoder.serv
 import {CouponService} from "./CouponService/coupon.service";
 import {CouponIf} from "./CouponInterface";
 import {DistanceService} from "./Distance/distance.service";
-import {waitForAsync} from "@angular/core/testing";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {OverviewComponent} from "./overview/overview.component";
 
 @Component({
   selector: 'app-main',
@@ -18,34 +20,43 @@ import {waitForAsync} from "@angular/core/testing";
     MatChip,
     NavbarComponent,
     MatCardContent,
-    MatIcon
+    MatIcon,
+    MatProgressSpinner
   ],
   template: `
     <div class="h-auto w-100 overflow-hidden margin-top-10px">
-      <p>
-        <mat-icon (click)="locationStatus()"
-                  id="js-locationButton">{{ isLocationOn ? 'location_on' : 'location_off' }}
-        </mat-icon>
-        {{ isLocationOn ? currentCity + ',' + currentStreet : 'Ortungsdienste sind nicht verfügbar' }}
-      </p>
-      <div style="overflow: scroll">
-        @for (coup of this.coupons; track coup){
-        <div class="d-flex justify-content-center" style="margin-bottom: 20px">
-          <mat-card class="w-90 d-flex justify-content-center">
-            <mat-card-title class="w-100 text-center margin-top-10px" style="margin-top: 10px">
-              {{coup.name}}
-              <mat-chip style="background-color: seagreen; float: right; margin-right: 10px;">{{coup.kategorie}}</mat-chip>
-            </mat-card-title>
-            <mat-card-content>
-              Produkttyp: {{coup.artikelart}} <br>
-              Abholzeit: 17:00-19:00 Uhr<br>
-              Addresse: <a href="https://www.google.com/maps?q={{coup.latitude}},{{coup.longitude}}"> zu Maps</a><br>
-              <mat-chip style="background-color: seagreen; float: right; width: 50px">3€</mat-chip>
-            </mat-card-content>
-          </mat-card>
-        </div>
+      @if (isloaded) {
+        <p>
+          <mat-icon (click)="locationStatus()"
+                    id="js-locationButton">{{ isLocationOn ? 'location_on' : 'location_off' }}
+          </mat-icon>
+          {{ isLocationOn ? currentCity + ',' + currentStreet : 'Ortungsdienste sind nicht verfügbar' }}
+        </p>
+        <div style="overflow: scroll">
+          @for (coup of this.coupons; track coup) {
+            <div class="d-flex justify-content-center" style="margin-bottom: 20px">
+              <mat-card class="w-90 d-flex justify-content-center" (click)="openOverView(coup)">
+                <mat-card-title class="w-100 text-center margin-top-10px" style="margin-top: 10px">
+                  {{ coup.name }}
+                  <mat-chip style="background-color: seagreen; float: right; margin-right: 10px;">{{ coup.kategorie }}
+                  </mat-chip>
+                </mat-card-title>
+                <mat-card-content>
+                  Produkttyp: {{ coup.artikelart }} <br>
+                  Abholzeit: {{coup.abholzeit}} Uhr<br>
+                  Addresse: {{coup.username}},<a href="https://www.google.com/maps?q={{coup.latitude}},{{coup.longitude}}">
+                  Maps</a><br>
+                  <mat-chip style="background-color: seagreen; float: right; width: 70px">{{coup.preis}}€</mat-chip>
+                </mat-card-content>
+              </mat-card>
+            </div>
           }
-      </div>
+        </div>
+      } @else {
+        <div class="d-flex justify-content-center align-items-center h-100" style="margin-bottom: 20px">
+            <mat-spinner></mat-spinner>
+        </div>
+      }
 
       <div class="fixed-bottom">
         <app-navbar></app-navbar>
@@ -61,15 +72,18 @@ export class MainComponent implements OnInit {
   currentStreet: string = "";
   currentCity: string = ''
   coupons: CouponIf[] = []
+  isloaded = false
 
 
-  constructor(private reversGeolocation: ReversGeodecoderService, private coupon: CouponService, private dist : DistanceService) {
+  constructor(private reversGeolocation: ReversGeodecoderService,
+              private coupon: CouponService,
+              private dist : DistanceService,
+              private dialog: MatDialog) {
   }
 
    ngOnInit() {
      this.getCurrentCoordinates()
-    console.log(this.latitude)
-    console.log(this.longitude)
+     this.isloaded = false
 
   }
 
@@ -83,6 +97,7 @@ export class MainComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
           this.latitude = position.coords.latitude;
           this.longitude = position.coords.longitude
+        this.isloaded = true
           this.getCurrentCityAndStreet(this.latitude, this.longitude)
           this.getAllCoupons()
         },
@@ -109,7 +124,6 @@ export class MainComponent implements OnInit {
       });
   }
 
-
    getAllCoupons() {
     this.coupon.getAllCoupons().subscribe(response => {
       const json = JSON.parse(JSON.stringify(response))
@@ -126,5 +140,13 @@ export class MainComponent implements OnInit {
 
     this.coupons.sort((a, b) => a.distance - b.distance);
     console.log("sortiert")
+  }
+
+  openOverView(coup : CouponIf){
+     this.dialog.open(OverviewComponent, {
+      width: '90%',
+      height: '90%',
+      data: coup
+    })
   }
 }

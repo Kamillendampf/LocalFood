@@ -1,6 +1,9 @@
 package Struct
 
+import "gorm.io/gorm"
+
 type Coupon struct {
+	gorm.Model
 	ID           uint    `gorm:"primaryKey" json:"id"`
 	UserIdent    string  `gorm:"not null" json:"identKey"`
 	Username     string  `gorm:"size:100;not null" json:"username"`
@@ -11,5 +14,5 @@ type Coupon struct {
 	Name         string  `gorm:"size:100;not null" json:"name"`
 	Beschreibung string  `gorm:"type:text" json:"beschreibung"`
 	Abholzeit    string  `gorm:"size:100" json:"abholzeit"`
-	Preis        float32 `gorm:"not null" json:"preis"`
+	Preis        string  `gorm:"not null" json:"preis"`
 }

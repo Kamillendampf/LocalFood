@@ -15,8 +15,8 @@ import {MatButton} from "@angular/material/button";
     <h2 mat-dialog-title>Coupon Einlösen</h2>
     <mat-dialog-content>Bist du sicher, dass du den Coupon einlösen möchtest?</mat-dialog-content>
     <mat-dialog-actions>
-      <button  mat-flat-button (click)="onNoClick()" style="background-color: lightgreen">Abbrechen</button>
-      <button mat-flat-button [mat-dialog-close]="true" cdkFocusInitial color="warn">Bestätigen</button>
+      <button  mat-flat-button (click)="onNoClick()" style="background-color: lightgreen" id="js-abbrechenButton">Abbrechen</button>
+      <button mat-flat-button [mat-dialog-close]="true" cdkFocusInitial color="warn" id="js-bestaetigenButton">Bestätigen</button>
     </mat-dialog-actions>
   `,
   styleUrl: './einloesen-conefermation.component.scss'

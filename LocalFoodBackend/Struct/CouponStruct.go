@@ -14,7 +14,7 @@ type Coupon struct {
 	Name         string  `gorm:"size:100;not null" json:"name"`
 	Beschreibung string  `gorm:"type:text" json:"beschreibung"`
 	Abholzeit    string  `gorm:"size:100" json:"abholzeit"`
-	Preis        string  `gorm:"not null" json:"preis"`
+	Preis        float64 `gorm:"not null" json:"preis"`
 }
 
 type MyCoupon struct {

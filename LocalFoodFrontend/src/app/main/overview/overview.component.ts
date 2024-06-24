@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MatCard, MatCardContent, MatCardTitle} from "@angular/material/card";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {CouponIf} from "../CouponInterface";
@@ -55,7 +55,8 @@ import {
             Buchen
           </button>
         } @else {
-          <button mat-flat-button (click)="deletCoupon(this.data.id )" id="js-einoesenButton" style="background-color: seagreen">
+          <button mat-flat-button (click)="deletCoupon(this.data.id )" id="js-einoesenButton"
+                  style="background-color: seagreen">
             Einlösen
           </button>
         }
@@ -78,7 +79,7 @@ import {
   `,
   styleUrl: './overview.component.scss'
 })
-export class OverviewComponent implements AfterViewInit {
+export class OverviewComponent implements OnInit {
 
   street: string = ''
   city: string = ''
@@ -93,10 +94,10 @@ export class OverviewComponent implements AfterViewInit {
               private coupon: CouponService,
               private readonly controler: ControllerService,
               public dialogRef: MatDialogRef<OverviewComponent>,
-              public confDial : MatDialog) {
+              public confDial: MatDialog) {
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.reversGeo.getAddress(this.data.latitude, this.data.longitude).subscribe((adr: any) => {
       console.log(JSON.stringify(adr))
       this.street = adr.address.road;
@@ -132,11 +133,11 @@ export class OverviewComponent implements AfterViewInit {
     this.coupon.addCoupons(coupID).subscribe(r => r)
   }
 
-  deletCoupon(id : number){
-    const dialogConf : MatDialogRef<EinloesenConefermationComponent> = this.confDial.open(EinloesenConefermationComponent)
+  deletCoupon(id: number) {
+    const dialogConf: MatDialogRef<EinloesenConefermationComponent> = this.confDial.open(EinloesenConefermationComponent)
 
-    dialogConf.afterClosed().subscribe(r =>{
-      if (r){
+    dialogConf.afterClosed().subscribe(r => {
+      if (r) {
         console.log("der nutzer hat zu gestimmt den coupon zu löschen.")
         this.coupon.deleteMyCoupon(id).subscribe(r => r)
         this.dialogRef.close()

@@ -1,20 +1,40 @@
-// File path: src/app/services/add-coponent.service.spec.ts
-
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AddCoponentService } from './add-coponent.service';
+import { UserprofileService } from '../../UserProfile/userprofile.service';
+import { ReversGeodecoderService } from '../../main/reversGeodecoder/revers-geodecoder.service';
 import { environment } from '../../../../environment/environment';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('AddCoponentService', () => {
   let service: AddCoponentService;
   let httpMock: HttpTestingController;
+  let userprofileServiceMock: any;
+  let reversGeodecoderServiceMock: any;
 
   beforeEach(() => {
+    userprofileServiceMock = {
+      getIdentKey: jasmine.createSpy().and.returnValue('function wrap() {\n' +
+        '            return fn(this, arguments, this instanceof wrap);\n' +
+        '          }'),
+    };
+
+    reversGeodecoderServiceMock = {
+      getAddress: jasmine.createSpy().and.returnValue({
+        subscribe: jasmine.createSpy().and.callFake((callback: any) => {
+         callback;
+        })
+      })
+    };
+
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, BrowserAnimationsModule],
-      providers: [AddCoponentService]
+      imports: [HttpClientTestingModule],
+      providers: [
+        AddCoponentService,
+        { provide: UserprofileService, useValue: userprofileServiceMock },
+        { provide: ReversGeodecoderService, useValue: reversGeodecoderServiceMock }
+      ]
     });
+
     service = TestBed.inject(AddCoponentService);
     httpMock = TestBed.inject(HttpTestingController);
   });
@@ -27,29 +47,61 @@ describe('AddCoponentService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should make a POST request to add a copon', () => {
-    const latitude = 10.0;
-    const longitude = 20.0;
-    const kategorie = 'TestKategorie';
-    const artikelart = 'TestArtikelart';
-    const name = 'TestName';
-    const beschreibung = 'TestBeschreibung';
+  it('should call addCopon and make a POST request', () => {
+    const latitude = 50.0;
+    const longitude = 8.0;
+    const kategorie = 'food';
+    const artikelart = 'fruit';
+    const name = 'apple';
+    const beschreibung = 'fresh apple';
+    const abholzeit = '10:00';
+    const preis = 1.5;
 
-    service.addCopon(latitude, longitude, kategorie, artikelart, name, beschreibung).subscribe(response => {
-      expect(response).toBeTruthy();
-    });
+    service.addCopon(latitude, longitude, kategorie, artikelart, name, beschreibung, abholzeit, preis)
+      .subscribe(response => {
+        expect(response).toBeTruthy();
+      });
 
-    const req = httpMock.expectOne('http://' + environment.apiUrl + '/login');
+    const req = httpMock.expectOne(`http://${environment.apiUrl}/addCoupon`);
     expect(req.request.method).toBe('POST');
+    expect(req.request.headers.get('Authorization')).toBe('function wrap() {\n' +
+      '            return fn(this, arguments, this instanceof wrap);\n' +
+      '          }');
     expect(req.request.body).toEqual({
-      latitude: latitude,
-      longitude: longitude,
-      kategorie: kategorie,
-      artikelart: artikelart,
-      name: name,
-      beschreibung: beschreibung
+      identKey: 'function wrap() {\n' +
+        '            return fn(this, arguments, this instanceof wrap);\n' +
+        '          }',
+      username: undefined,
+      latitude,
+      longitude,
+      kategorie,
+      artikelart,
+      name,
+      beschreibung,
+      abholzeit,
+      preis
     });
 
-    req.flush({ success: true });
+    req.flush({});
+  });
+
+  it('should call getAddress from ReversGeodecoderService', () => {
+    const latitude = 50.0;
+    const longitude = 8.0;
+    const kategorie = 'food';
+    const artikelart = 'fruit';
+    const name = 'apple';
+    const beschreibung = 'fresh apple';
+    const abholzeit = '10:00';
+    const preis = 1.5;
+
+    service.addCopon(latitude, longitude, kategorie, artikelart, name, beschreibung, abholzeit, preis)
+      .subscribe();
+
+    expect(reversGeodecoderServiceMock.getAddress).toHaveBeenCalledWith(latitude, longitude);
+
+    // Abfangen der HTTP-Anfrage, um den Fehler zu vermeiden
+    const req = httpMock.expectOne(`http://${environment.apiUrl}/addCoupon`);
+    req.flush({});
   });
 });

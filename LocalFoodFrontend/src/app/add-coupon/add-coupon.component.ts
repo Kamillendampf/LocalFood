@@ -76,7 +76,7 @@ import {NgxMatTimepickerComponent, NgxMatTimepickerDirective} from "ngx-mat-time
                 <input matInput
                        name="selected_time_Start"
                        [format]="24"
-                       [(ngModel)]="selectedTimes.Start"
+                       [(ngModel)]="selectedTimes.B"
                        [ngxMatTimepicker]="pickerStart"
                        placeholder="16:00"
                        readonly
@@ -93,7 +93,7 @@ import {NgxMatTimepickerComponent, NgxMatTimepickerDirective} from "ngx-mat-time
                 <input matInput
                        name="selected_time_End"
                        [format]="24"
-                       [(ngModel)]="selectedTimes.End"
+                       [(ngModel)]="selectedTimes.B"
                        [ngxMatTimepicker]="pickerEnd"
                        placeholder="16:00"
                        readonly
@@ -184,9 +184,9 @@ export class AddCouponComponent implements OnInit {
       let end = this.artikelForm.get('end')?.value
       let preis = this.artikelForm.get('preis')?.value
       let timeSpan: string = start + "bis" + end
-      this.addCoupon.addCopon(this.latitude, this.longitude, kategorie, artikelart, name, beschreibung, timeSpan, preis.toString()).subscribe(r => r)
+      this.addCoupon.addCopon(this.latitude, this.longitude, kategorie, artikelart, name, beschreibung, timeSpan, preis).subscribe(r => r)
       this.snackBar.open('Coupon wurde erstellt..', "", {
-        duration: 5000, // Die Snackbar wird nach 5 Sekunden automatisch geschlossen
+        duration: 5000,
       });
     }
 

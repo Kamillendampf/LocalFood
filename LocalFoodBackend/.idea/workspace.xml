@@ -5,25 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d270b76-f63f-45c6-94b7-7a7e4eb4a6b8" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/main/overview/overlayControl/controller.service.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/main/overview/overlayControl/controller.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/Coupon.go" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/Coupon.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/landingPage.go" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/landingPage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DAO/Connection.go" beforeDir="false" afterPath="$PROJECT_DIR$/DAO/Connection.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DAO/Coupon.go" beforeDir="false" afterPath="$PROJECT_DIR$/DAO/Coupon.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/Coupon.go" beforeDir="false" afterPath="$PROJECT_DIR$/Service/Coupon.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Service/User.go" beforeDir="false" afterPath="$PROJECT_DIR$/Service/User.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Struct/CouponStruct.go" beforeDir="false" afterPath="$PROJECT_DIR$/Struct/CouponStruct.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/coupon/coupon.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/coupon/coupon.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/main/CouponService/coupon.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/main/CouponService/coupon.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/main/main.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/main/main.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/add-coupon/add-coupon.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/add-coupon/add-coupon.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/add-coupon/add-coupon.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/add-coupon/add-coupon.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/add-coupon/service/add-coponent.service.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/add-coupon/service/add-coponent.service.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/confermation/einloesen-conefermation/einloesen-conefermation.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/confermation/einloesen-conefermation/einloesen-conefermation.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/confermation/einloesen-conefermation/einloesen-conefermation.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/confermation/einloesen-conefermation/einloesen-conefermation.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/coupon/coupon.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/coupon/coupon.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/main/main.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/main/main.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/main/overview/overlayControl/controller.service.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/main/overview/overlayControl/controller.service.spec.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/main/overview/overview.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/app/main/overview/overview.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LocalFoodFrontend/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../LocalFoodFrontend/src/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

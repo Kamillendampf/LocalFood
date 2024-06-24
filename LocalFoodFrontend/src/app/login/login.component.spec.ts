@@ -1,5 +1,3 @@
-// File path: src/app/login/login.component.spec.ts
-
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';

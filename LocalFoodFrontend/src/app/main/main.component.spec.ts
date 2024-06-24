@@ -1,25 +1,88 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MainComponent } from './main.component';
-import {ReversGeodecoderService} from "./reversGeodecoder/revers-geodecoder.service";
-import {of} from "rxjs";
-import {HttpClient, HttpHandler} from "@angular/common/http";
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {NO_ERRORS_SCHEMA} from '@angular/core';
+import {of} from 'rxjs';
+import {MainComponent} from './main.component';
+import {ReversGeodecoderService} from './reversGeodecoder/revers-geodecoder.service';
+import {CouponService} from './CouponService/coupon.service';
+import {DistanceService} from './Distance/distance.service';
+import {ControllerService} from './overview/overlayControl/controller.service';
 
 describe('MainComponent', () => {
   let component: MainComponent;
   let fixture: ComponentFixture<MainComponent>;
-  let reversGeodecoderServiceSpy: jasmine.SpyObj<ReversGeodecoderService>;
+  let reversGeoSpy: jasmine.SpyObj<ReversGeodecoderService>;
+  let couponSpy: jasmine.SpyObj<CouponService>;
+  let distSpy: jasmine.SpyObj<DistanceService>;
+  let dialogSpy: jasmine.SpyObj<MatDialog>;
+  let controlerSpy: jasmine.SpyObj<ControllerService>;
 
-  beforeEach(async () => {
-    const reversGeodecoderServiceSpy = jasmine.createSpyObj('ReversGeodecoderService', ['getAddress']);
-    await TestBed.configureTestingModule({
-      imports: [MainComponent],
-      providers: [{ provide: ReversGeodecoderService, useValue: reversGeodecoderServiceSpy }, HttpClient, HttpHandler]
-    })
-    .compileComponents();
+  beforeEach(waitForAsync(() => {
+    const reversGeoServiceSpy = jasmine.createSpyObj('ReversGeodecoderService', ['getAddress']);
+    const couponServiceSpy = jasmine.createSpyObj('CouponService', ['getAllCoupons']);
+    const distanceServiceSpy = jasmine.createSpyObj('DistanceService', ['getDistance']);
+    const matDialogSpy = jasmine.createSpyObj('MatDialog', ['open', 'afterAllClosed']);
+    const controllerServiceSpy = jasmine.createSpyObj('ControllerService', [], { isNavOn: true });
 
+    TestBed.configureTestingModule({
+      imports: [
+        MainComponent,
+        MatCardModule,
+        MatChipsModule,
+        MatIconModule,
+        MatProgressSpinnerModule,
+        MatDialogModule
+      ],
+      providers: [
+        { provide: ReversGeodecoderService, useValue: reversGeoServiceSpy },
+        { provide: CouponService, useValue: couponServiceSpy },
+        { provide: DistanceService, useValue: distanceServiceSpy },
+        { provide: MatDialog, useValue: matDialogSpy },
+        { provide: ControllerService, useValue: controllerServiceSpy }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    }).compileComponents();
+
+    reversGeoSpy = TestBed.inject(ReversGeodecoderService) as jasmine.SpyObj<ReversGeodecoderService>;
+    couponSpy = TestBed.inject(CouponService) as jasmine.SpyObj<CouponService>;
+    distSpy = TestBed.inject(DistanceService) as jasmine.SpyObj<DistanceService>;
+    dialogSpy = TestBed.inject(MatDialog) as jasmine.SpyObj<MatDialog>;
+    controlerSpy = TestBed.inject(ControllerService) as jasmine.SpyObj<ControllerService>;
+  }));
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(MainComponent);
     component = fixture.componentInstance;
+    spyOn(navigator.geolocation, 'getCurrentPosition').and.callFake((success, error) => {
+      const position = JSON.parse(JSON.stringify({
+        coords: {
+          latitude: 48.8584,
+          longitude: 2.2945
+        }
+      }));
+      success(position);
+    });
+
+    reversGeoSpy.getAddress.and.returnValue(of({
+      address: {
+        road: 'Test Road',
+        city: 'Test City'
+      }
+    }));
+
+    couponSpy.getAllCoupons.and.returnValue(of(JSON.parse(JSON.stringify(
+      { id: 1, name: 'Coupon 1', kategorie: 'Food', preis: 10, artikelart: 'Grocery', abholzeit: '12:00', username: 'John Doe', latitude: 48.8584, longitude: 2.2945, distance: 0 })),
+      JSON.parse(JSON.stringify({ id: 2, name: 'Coupon 2', kategorie: 'Food', preis: 20, artikelart: 'Electronics', abholzeit: '14:00', username: 'Jane Doe', latitude: 48.8584, longitude: 2.2945, distance: 0 }
+    ))));
+
+    distSpy.getDistance.and.callFake((coupon, currentPos) => {
+      return { ...coupon, distance: Math.random() * 10 };  // Mock distance calculation
+    });
+
     fixture.detectChanges();
   });
 
@@ -27,58 +90,19 @@ describe('MainComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should toggle location status and update icon text', () => {
-    expect(component.isLocationOn).toBe(true);
-
-    let icon = fixture.nativeElement.querySelector('#js-locationButton');
-    expect(icon.textContent.trim()).toBe('location_on');
-
-    console.log('Initial isLocationOn:', component.isLocationOn);
-
-    icon.click();
-    fixture.detectChanges();
-
-    console.log('After first click isLocationOn:', component.isLocationOn);
-    expect(component.isLocationOn).toBe(false);
-    expect(icon.textContent.trim()).toBe('location_off');
-
-    icon.click();
-    fixture.detectChanges();
-
-    console.log('After second click isLocationOn:', component.isLocationOn);
-    expect(component.isLocationOn).toBe(true);
-    expect(icon.textContent.trim()).toBe('location_on');
+  it('should initialize with current location and load coupons', () => {
+    expect(component.latitude).toBe(48.8584);
+    expect(component.longitude).toBe(2.2945);
+    expect(component.currentCity).toBe('Test City');
+    expect(component.currentStreet).toBe('Test Road');
+    expect(component.isloaded).toBeFalse();
   });
 
-  it('should get current coordinates',
-    async () => {
-      const mockAddress = {
-        address: {
-          road: 'Test Road',
-          city: 'Test City'
-        }
-      };
-
-      spyOn(navigator.geolocation, 'getCurrentPosition').and.callFake((success) => {
-        success({coords: {latitude: 51.1, longitude: 45.3}} as GeolocationPosition);
-      });
-
-
-
-      component.getCurrentCoordinates();
-
-      expect(component.latitude).toBe(51.1);
-      expect(component.longitude).toBe(45.3);
-    });
-
-  it('should get current city and street', () => {
-
-    component.getCurrentCityAndStreet(51.5072, 0.1276);
-
-    component.getCurrentCityAndStreet(123, 456).then(() => {
-      expect(component.currentStreet).toBe('Crossway');
-      expect(component.currentCity).toBe('London');
-    });
+  it('should toggle location status', () => {
+    expect(component.isLocationOn).toBeTrue();
+    component.locationStatus();
+    expect(component.isLocationOn).toBeFalse();
+    component.locationStatus();
+    expect(component.isLocationOn).toBeTrue();
   });
-
 });

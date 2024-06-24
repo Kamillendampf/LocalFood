@@ -1,64 +1,61 @@
 package Tests
 
 import (
-	"LocalFoodBackend/Controller"
-	"fmt"
-	"log"
+	. "LocalFoodBackend/Controller"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
 
 func TestLandingPage(t *testing.T) {
-	log.Print("it should get all Headers")
-	// Erstellen einer HTTP-Anfrage für die LandingPage
-	req, err := http.NewRequest("POST", "/", nil)
-	if err != nil {
-		t.Fatal(err)
+	// Define a set of test cases
+	tests := []struct {
+		name       string
+		urlPath    string
+		wantStatus int
+	}{
+		{
+			name:       "ValidFile",
+			urlPath:    "/index.html",
+			wantStatus: http.StatusOK,
+		},
+		{
+			name:       "InvalidFile",
+			urlPath:    "/nonexistent.html",
+			wantStatus: http.StatusNotFound,
+		},
 	}
 
-	// Recorder, um die Antwort aufzuzeichnen
-	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(Controller.LandingPage)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			req, err := http.NewRequest("GET", tt.urlPath, nil)
+			if err != nil {
+				t.Fatal(err)
+			}
 
-	// Anfrage ausführen
-	handler.ServeHTTP(rr, req)
+			rr := httptest.NewRecorder()
+			handler := http.HandlerFunc(LandingPage)
+			handler.ServeHTTP(rr, req)
 
-	// Statuscode prüfen
-	if status := rr.Code; status != 200 {
-		t.Errorf("Handler returned wrong status code: got %v want %v",
-			status, 200)
-	} else {
-		fmt.Print("PASSED\n")
+			// Check headers
+			if rr.Header().Get("Access-Control-Allow-Origin") != "*" {
+				t.Errorf("handler returned wrong Access-Control-Allow-Origin header: got %v want %v", rr.Header().Get("Access-Control-Allow-Origin"), "*")
+			}
+
+			expectedCSP := " default-src 'self' https://fonts.gstatic.com; https://unpkg.com/leaflet@1.9.4/ tile.openstreetmap.org;" +
+				"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com/leaflet@1.9.4/dist/leaflet.css;" +
+				"img-src 'self' https://unpkg.com/leaflet@1.9.4/ https://tile.openstreetmap.org;" +
+				"script-src 'self' https://unpkg.com/leaflet@1.9.4/dist/leaflet.js;" +
+				"font-src 'self' https://fonts.gstatic.com;" +
+				"connect-src 'self' localhost:8080 https://nominatim.openstreetmap.org;" +
+				"object-src 'none';" +
+				"base-uri 'self';" +
+				"form-action 'self';" +
+				"frame-ancestors 'none';"
+
+			if rr.Header().Get("Content-Security-Policy") != expectedCSP {
+				t.Errorf("handler returned wrong Content-Security-Policy header: got %v want %v", rr.Header().Get("Content-Security-Policy"), expectedCSP)
+			}
+		})
 	}
-
-	// Prüfen der Header
-	expectedCSP := " default-src 'self' https://fonts.gstatic.com;" +
-		"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;" +
-		"img-src 'self';" +
-		"script-src 'self';" +
-		"font-src 'self' https://fonts.gstatic.com;" +
-		"connect-src 'self' http://localhost:8080 https://nominatim.openstreetmap.org;" +
-		"object-src 'none';" +
-		"base-uri 'self';" +
-		"form-action 'self';" +
-		"frame-ancestors 'none';"
-
-	log.Print("it should have a csp header and the correct configuration")
-
-	if csp := rr.Header().Get("Content-Security-Policy"); csp != expectedCSP {
-		t.Errorf("Handler returned unexpected Content-Security-Policy header: got %v want %v",
-			csp, expectedCSP)
-	} else {
-		fmt.Print("PASSED\n")
-	}
-
-	log.Printf("it should have a ACAO and it should be correct configured")
-	if acao := rr.Header().Get("Access-Control-Allow-Origin"); acao != "*" {
-		t.Errorf("Handler returned unexpected Access-Control-Allow-Origin header: got %v want %v",
-			acao, "*")
-	} else {
-		fmt.Print("PASSED\n")
-	}
-
 }

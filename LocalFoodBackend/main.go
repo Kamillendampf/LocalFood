@@ -14,7 +14,11 @@ func main() {
 	http.HandleFunc("/login", LoginUser)
 
 	http.HandleFunc("/addCoupon", AddCoupon)
+	http.HandleFunc("/addMyCoupon", AddMyCoupon)
+
 	http.HandleFunc("/getAllCoupons", GetAllCoupons)
+	http.HandleFunc("/getMyCoupons", GetMyCoupons)
+	http.HandleFunc("/deleteMyCoupons", DeleteMyCoupons)
 
 	err := http.ListenAndServe(":8080", nil)
 	if err != nil {

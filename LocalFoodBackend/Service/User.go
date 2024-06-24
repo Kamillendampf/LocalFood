@@ -10,7 +10,6 @@ func AddUser(user *Struct.User) {
 }
 
 func LoginCheck(user *Struct.User) bool {
-
 	if user.IdentKey == DAO.GetUser(user).IdentKey {
 		return true
 	} else {

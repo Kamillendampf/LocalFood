@@ -14,7 +14,7 @@ var db *gorm.DB
 func init() {
 	_connect()
 
-	if err := db.AutoMigrate(Struct.User{}, Struct.Coupon{}); err != nil {
+	if err := db.AutoMigrate(Struct.User{}, Struct.Coupon{}, Struct.MyCoupon{}); err != nil {
 		log.Fatal("Until auto migrate form database something went wrong Error: " + err.Error())
 		return
 	}

@@ -16,3 +16,9 @@ type Coupon struct {
 	Abholzeit    string  `gorm:"size:100" json:"abholzeit"`
 	Preis        string  `gorm:"not null" json:"preis"`
 }
+
+type MyCoupon struct {
+	gorm.Model
+	CouponID  uint   `gorm:"not null" json:"couponID"`
+	UserIdent string `gorm:"not null" json:"identKey"`
+}

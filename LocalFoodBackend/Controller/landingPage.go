@@ -6,9 +6,9 @@ import (
 )
 
 func LandingPage(w http.ResponseWriter, r *http.Request) {
-	csp := " default-src 'self' https://fonts.gstatic.com;" +
+	csp := " default-src 'self' https://fonts.gstatic.com; https://unpkg.com/leaflet@1.9.4/ tile.openstreetmap.org;" +
 		"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com/leaflet@1.9.4/dist/leaflet.css;" +
-		"img-src 'self' https://unpkg.com/leaflet@1.9.4/ tile.openstreetmap.org;" +
+		"img-src 'self' https://unpkg.com/leaflet@1.9.4/ https://tile.openstreetmap.org;" +
 		"script-src 'self' https://unpkg.com/leaflet@1.9.4/dist/leaflet.js;" +
 		"font-src 'self' https://fonts.gstatic.com;" +
 		"connect-src 'self' localhost:8080 https://nominatim.openstreetmap.org;" +

@@ -8,8 +8,9 @@ import {CouponService} from "./CouponService/coupon.service";
 import {CouponIf} from "./CouponInterface";
 import {DistanceService} from "./Distance/distance.service";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialog} from "@angular/material/dialog";
 import {OverviewComponent} from "./overview/overview.component";
+import {ControllerService} from "./overview/overlayControl/controller.service";
 
 @Component({
   selector: 'app-main',
@@ -43,10 +44,11 @@ import {OverviewComponent} from "./overview/overview.component";
                 </mat-card-title>
                 <mat-card-content>
                   Produkttyp: {{ coup.artikelart }} <br>
-                  Abholzeit: {{coup.abholzeit}} Uhr<br>
-                  Addresse: {{coup.username}},<a href="https://www.google.com/maps?q={{coup.latitude}},{{coup.longitude}}">
+                  Abholzeit: {{ coup.abholzeit }} Uhr<br>
+                  Addresse: {{ coup.username }},<a
+                  href="https://www.google.com/maps?q={{coup.latitude}},{{coup.longitude}}">
                   Maps</a><br>
-                  <mat-chip style="background-color: seagreen; float: right; width: 70px">{{coup.preis}}€</mat-chip>
+                  <mat-chip style="background-color: seagreen; float: right; width: 70px">{{ coup.preis }}€</mat-chip>
                 </mat-card-content>
               </mat-card>
             </div>
@@ -54,13 +56,14 @@ import {OverviewComponent} from "./overview/overview.component";
         </div>
       } @else {
         <div class="d-flex justify-content-center align-items-center h-100" style="margin-bottom: 20px">
-            <mat-spinner></mat-spinner>
+          <mat-spinner></mat-spinner>
         </div>
       }
-
-      <div class="fixed-bottom">
-        <app-navbar></app-navbar>
-      </div>
+      @if (isNavOn){
+        <div class="fixed-bottom">
+          <app-navbar></app-navbar>
+        </div>
+      }
     </div>
   `,
   styleUrl: './main.component.scss'
@@ -73,17 +76,19 @@ export class MainComponent implements OnInit {
   currentCity: string = ''
   coupons: CouponIf[] = []
   isloaded = false
+  isNavOn : boolean = this.controler.isNavOn
 
 
   constructor(private reversGeolocation: ReversGeodecoderService,
               private coupon: CouponService,
-              private dist : DistanceService,
-              private dialog: MatDialog) {
+              private dist: DistanceService,
+              private dialog: MatDialog,
+              private controler : ControllerService) {
   }
 
-   ngOnInit() {
-     this.getCurrentCoordinates()
-     this.isloaded = false
+  ngOnInit() {
+    this.getCurrentCoordinates()
+    this.isloaded = false
 
   }
 
@@ -92,12 +97,12 @@ export class MainComponent implements OnInit {
     //this.getCurrentCoordinates()
   }
 
-   getCurrentCoordinates() {
+  getCurrentCoordinates() {
     if (navigator.geolocation && this.isLocationOn) {
       navigator.geolocation.getCurrentPosition((position) => {
           this.latitude = position.coords.latitude;
           this.longitude = position.coords.longitude
-        this.isloaded = true
+          this.isloaded = true
           this.getCurrentCityAndStreet(this.latitude, this.longitude)
           this.getAllCoupons()
         },
@@ -116,7 +121,7 @@ export class MainComponent implements OnInit {
     }
   }
 
-   getCurrentCityAndStreet(latitude: number, longitude: number) {
+  getCurrentCityAndStreet(latitude: number, longitude: number) {
     this.reversGeolocation.getAddress(latitude, longitude)
       .subscribe((data: any) => {
         this.currentStreet = data.address.road;
@@ -124,17 +129,17 @@ export class MainComponent implements OnInit {
       });
   }
 
-   getAllCoupons() {
+  getAllCoupons() {
     this.coupon.getAllCoupons().subscribe(response => {
       const json = JSON.parse(JSON.stringify(response))
       this.sorteAllCouponsByDistance(json)
     })
   }
 
-  sorteAllCouponsByDistance(coupons : CouponIf[]){
-    var currentPos : { latitude: number; longitude: number } = {latitude: this.latitude, longitude: this.longitude}
-      this.coupons = []
-    for (let coupon of coupons){
+  sorteAllCouponsByDistance(coupons: CouponIf[]) {
+    var currentPos: { latitude: number; longitude: number } = {latitude: this.latitude, longitude: this.longitude}
+    this.coupons = []
+    for (let coupon of coupons) {
       this.coupons.push(this.dist.getDistance(coupon, currentPos))
     }
 
@@ -142,11 +147,17 @@ export class MainComponent implements OnInit {
     console.log("sortiert")
   }
 
-  openOverView(coup : CouponIf){
-     this.dialog.open(OverviewComponent, {
+  openOverView(coup: CouponIf) {
+    this.controler.isBooking = true
+    this.isNavOn = false
+    this.dialog.open(OverviewComponent, {
       width: '90%',
       height: '90%',
-      data: coup
+      data: coup,
+    });
+
+    this.dialog.afterAllClosed.subscribe(r => {
+      this.isNavOn = true
     })
   }
 }

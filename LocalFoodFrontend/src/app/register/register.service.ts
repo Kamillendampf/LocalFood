@@ -8,13 +8,12 @@ import {environment} from "../../../environment/environment";
 })
 export class RegisterService {
 
-  private apiUrl : String = environment.apiUrl
   constructor(private http : HttpClient) { }
 
 registerUser(identKey: string, name : string, email : string, profileType : boolean): Observable<JSON>{
     console.log("Die Anfrage Register wurde aufgerufen")
   const body: { profileType: boolean, name : string, email : string, identKey: string } = {"profileType" : profileType, "name" : name, "email" : email, "identKey": identKey}
-  return this.http.post<JSON>('http://'+this.apiUrl + '/register', body).pipe((response => response))
+  return this.http.post<JSON>('http://'+environment.apiUrl + '/register', body).pipe((response => response))
   }
 
 }

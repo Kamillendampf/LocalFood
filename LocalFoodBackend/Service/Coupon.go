@@ -15,6 +15,7 @@ func AddMyCoupon(coupon *Struct.MyCoupon) {
 
 func GetAllCoupons() []Struct.Coupon {
 	return DAO.GetAllCoupons()
+	g
 }
 
 func GetMyCoupons(coupon *Struct.MyCoupon) []Struct.Coupon {

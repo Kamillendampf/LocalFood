@@ -65,11 +65,9 @@
     providers:[HttpClient]
   })
   export class LoginComponent implements OnInit{
-    logo = "../../assets/logo.png"
     hide : boolean = true;
 
-    constructor(private login : LoginServiceService, private router: Router, private user : UserprofileService) {
-    }
+    credentialKey : string = ""
 
     loginForm: FormGroup<{ email: FormControl, password: FormControl }> =
       new FormGroup<{ email: FormControl; password: FormControl }>({
@@ -77,8 +75,10 @@
         password: new FormControl('', [Validators.required]),
       })
 
+    constructor(private login : LoginServiceService, private router: Router, private user : UserprofileService) {
+    }
+
     ngOnInit() {
-      //this.router.navigate(['/home'])
       this.user.getRememberMe()
       if (this.user.getIdentKey != undefined){
         this.login.loginRequest(this.user.getIdentKey.toString()).subscribe((response): void => {
@@ -99,11 +99,11 @@
     }
 
 
-    hideEvent(event: MouseEvent) {
+    hideEvent(event: MouseEvent): void {
       this.hide = !this.hide;
       event.stopPropagation();
     }
-   credentialKey : string = ""
+
 
     async onLogin() {
       this.credentialKey = CryptoJS.SHA256(this.loginForm.get('email')?.value + this.loginForm.get('password')?.value).toString(CryptoJS.enc.Hex);
@@ -128,7 +128,6 @@
     }
 
     onRegister():void{
-      console.log("registrieren seite aufreufen")
       this.router.navigate(['/register'])
     }
   }

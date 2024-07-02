@@ -9,7 +9,6 @@ import { environment} from "../../../../environment/environment";
 })
 export class LoginServiceService {
 
-  private apiUrl : string = environment.apiUrl
   constructor(private http: HttpClient) { }
 
 
@@ -17,6 +16,6 @@ export class LoginServiceService {
   public loginRequest(identKey: string): Observable<JSON>{
     console.log("Die Anfrage Register wurde aufgerufen")
     const body: {identKey: string } = {"identKey": identKey}
-    return this.http.post<JSON>('http://'+this.apiUrl + '/login', body).pipe((response => response))
+    return this.http.post<JSON>('http://'+environment.apiUrl + '/login', body).pipe((response => response))
   }
 }
